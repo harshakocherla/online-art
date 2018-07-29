@@ -7,9 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="exhibition")
@@ -41,8 +43,13 @@ public class Exhibition implements Serializable {
 	@Column(name = "end_date", length = 225)
 	private String endDate;
 	
-	@ManyToMany(mappedBy = "exhibition")
-	private Set<Gallery> gallery;
+	@OneToMany(mappedBy = "exhibition")
+	private Set<Painting> paintings;
+	
+	@ManyToOne
+	@JoinColumn(name = "gallery_id", nullable= false)
+	private Gallery gallery;
+
 
 	/**
 	 * @return the exhibition_id
@@ -101,16 +108,30 @@ public class Exhibition implements Serializable {
 	}
 
 	/**
+	 * @return the paintings
+	 */
+	public Set<Painting> getPaintings() {
+		return paintings;
+	}
+
+	/**
+	 * @param paintings the paintings to set
+	 */
+	public void setPaintings(Set<Painting> paintings) {
+		this.paintings = paintings;
+	}
+
+	/**
 	 * @return the gallery
 	 */
-	public Set<Gallery> getGallery() {
+	public Gallery getGallery() {
 		return gallery;
 	}
 
 	/**
 	 * @param gallery the gallery to set
 	 */
-	public void setGallery(Set<Gallery> gallery) {
+	public void setGallery(Gallery gallery) {
 		this.gallery = gallery;
 	}
 
@@ -120,4 +141,6 @@ public class Exhibition implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	
 }

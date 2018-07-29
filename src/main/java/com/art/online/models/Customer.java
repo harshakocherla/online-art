@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,9 +40,6 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy = "customer")
 	private Set<CustomerAddress> customerAddress;
 	
-	@ManyToOne
-	@JoinColumn(name = "painting_id", nullable= false)
-	private Painting painting;
 
 	/**
 	 * @return the customer_id
@@ -107,19 +102,5 @@ public class Customer implements Serializable {
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	/**
-	 * @return the painting
-	 */
-	public Painting getPainting() {
-		return painting;
-	}
-
-	/**
-	 * @param painting the painting to set
-	 */
-	public void setPainting(Painting painting) {
-		this.painting = painting;
 	}
 }

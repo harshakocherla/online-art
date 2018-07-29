@@ -9,10 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -45,18 +42,11 @@ public class Gallery implements Serializable {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private GalleryAddress galleryAddress;
+
 	
-	@ManyToOne
-	@JoinColumn(name = "artist_id", nullable= false)
-	private Artist artist;
-	
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "organise", 
-        joinColumns = { @JoinColumn(name = "gallery_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "exhibition_id") }
-    )
+	@OneToMany(mappedBy = "gallery")
     Set<Exhibition> exhibition;
+
 
 	/**
 	 * @return the gallery_id
@@ -65,12 +55,14 @@ public class Gallery implements Serializable {
 		return gallery_id;
 	}
 
+
 	/**
 	 * @param gallery_id the gallery_id to set
 	 */
 	public void setGallery_id(long gallery_id) {
 		this.gallery_id = gallery_id;
 	}
+
 
 	/**
 	 * @return the gName
@@ -79,12 +71,14 @@ public class Gallery implements Serializable {
 		return gName;
 	}
 
+
 	/**
 	 * @param gName the gName to set
 	 */
 	public void setgName(String gName) {
 		this.gName = gName;
 	}
+
 
 	/**
 	 * @return the url
@@ -93,12 +87,14 @@ public class Gallery implements Serializable {
 		return url;
 	}
 
+
 	/**
 	 * @param url the url to set
 	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 
 	/**
 	 * @return the galleryAddress
@@ -107,6 +103,7 @@ public class Gallery implements Serializable {
 		return galleryAddress;
 	}
 
+
 	/**
 	 * @param galleryAddress the galleryAddress to set
 	 */
@@ -114,19 +111,6 @@ public class Gallery implements Serializable {
 		this.galleryAddress = galleryAddress;
 	}
 
-	/**
-	 * @return the artist
-	 */
-	public Artist getArtist() {
-		return artist;
-	}
-
-	/**
-	 * @param artist the artist to set
-	 */
-	public void setArtist(Artist artist) {
-		this.artist = artist;
-	}
 
 	/**
 	 * @return the exhibition
@@ -135,6 +119,7 @@ public class Gallery implements Serializable {
 		return exhibition;
 	}
 
+
 	/**
 	 * @param exhibition the exhibition to set
 	 */
@@ -142,12 +127,15 @@ public class Gallery implements Serializable {
 		this.exhibition = exhibition;
 	}
 
+
 	/**
 	 * @return the serialversionuid
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+
 	
 
 }

@@ -3,12 +3,13 @@ package com.art.online.models;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -41,8 +42,8 @@ public class Login implements Serializable {
 	@Column(name = "password", length = 225)
 	private String password;
 	
-	@ManyToMany(mappedBy = "login")
-	private Set<Painting> paintings;
+	@OneToMany(mappedBy = "login",cascade = CascadeType.ALL)
+	private Set<Likes> likes;
 
 	/**
 	 * @return the login_id
@@ -100,18 +101,20 @@ public class Login implements Serializable {
 		this.password = password;
 	}
 
+
+
 	/**
-	 * @return the paintings
+	 * @return the likes
 	 */
-	public Set<Painting> getPaintings() {
-		return paintings;
+	public Set<Likes> getLikes() {
+		return likes;
 	}
 
 	/**
-	 * @param paintings the paintings to set
+	 * @param likes the likes to set
 	 */
-	public void setPaintings(Set<Painting> paintings) {
-		this.paintings = paintings;
+	public void setLikes(Set<Likes> likes) {
+		this.likes = likes;
 	}
 
 	/**

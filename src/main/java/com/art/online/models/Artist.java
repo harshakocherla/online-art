@@ -3,6 +3,7 @@ package com.art.online.models;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,10 +41,7 @@ public class Artist implements Serializable{
 	@OneToMany(mappedBy = "artist")
 	private Set<ArtistAddress> artistAddress;
 	
-	@OneToMany(mappedBy = "artist")
-	private Set<Gallery> galleries;
-	
-	@OneToMany(mappedBy = "artist")
+	@OneToMany(mappedBy = "artist",cascade = CascadeType.ALL)
 	private Set<Painting> paintings;
 
 	/**
@@ -103,27 +101,6 @@ public class Artist implements Serializable{
 	}
 
 	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	/**
-	 * @return the galleries
-	 */
-	public Set<Gallery> getGalleries() {
-		return galleries;
-	}
-
-	/**
-	 * @param galleries the galleries to set
-	 */
-	public void setGalleries(Set<Gallery> galleries) {
-		this.galleries = galleries;
-	}
-
-	/**
 	 * @return the paintings
 	 */
 	public Set<Painting> getPaintings() {
@@ -136,5 +113,14 @@ public class Artist implements Serializable{
 	public void setPaintings(Set<Painting> paintings) {
 		this.paintings = paintings;
 	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 	
 }

@@ -2,6 +2,7 @@ package com.art.online.models;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class ArtistAddress implements Serializable {
 	@Column(name = "zip", length = 255)
 	private String zip;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "artist_id", nullable= false)
 	private Artist artist;
 

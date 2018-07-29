@@ -23,17 +23,20 @@ public class ArtistService {
 
 	public Artist addArtist(@Valid Artist artist) {
 		
-		return artistRepository.save(artist);
+		
+		for(ArtistAddress artistAddress: artist.getArtistAddress()) {
+			artistAddress.setArtist(artist);
+			artistAddressRepository.save(artistAddress);
+		}
+		Artist artistDetails = artistRepository.save(artist);
+		
+		
+		return artistDetails;
 	}
 
 	public List<Artist> getAllArtists() {
 		
 		return artistRepository.findAll();
-	}
-
-	public @Valid ArtistAddress addArtistAddress(@Valid ArtistAddress artistAddress) {
-		// TODO Auto-generated method stub
-		return artistAddressRepository.save(artistAddress);
 	}
 
 	public List<ArtistAddress> getAllArtistsAddress() {

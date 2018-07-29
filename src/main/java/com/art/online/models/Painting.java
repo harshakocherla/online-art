@@ -10,10 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -51,20 +50,20 @@ public class Painting implements Serializable {
 	@Column(name = "size", length = 225)
 	private String size;
 	
-	@OneToMany(mappedBy = "painting")
-	private Set<Customer> customer;
+	@OneToOne(cascade= CascadeType.ALL)
+	private Customer customer;
+	
+	@ManyToOne
+	@JoinColumn(name = "exhibition_id", nullable= false)
+	private Exhibition exhibition;
 	
 	@ManyToOne
 	@JoinColumn(name = "artist_id", nullable= false)
 	private Artist artist;
 	
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "likes", 
-        joinColumns = { @JoinColumn(name = "painting_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "login_id") }
-    )
-    Set<Login> login;
+
+	@OneToMany(mappedBy = "painting",cascade = CascadeType.ALL)
+	private Set<Likes> likes;
 
 	/**
 	 * @return the painting_id
@@ -73,12 +72,14 @@ public class Painting implements Serializable {
 		return painting_id;
 	}
 
+
 	/**
 	 * @param painting_id the painting_id to set
 	 */
 	public void setPainting_id(long painting_id) {
 		this.painting_id = painting_id;
 	}
+
 
 	/**
 	 * @return the title
@@ -87,12 +88,14 @@ public class Painting implements Serializable {
 		return title;
 	}
 
+
 	/**
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 
 	/**
 	 * @return the year
@@ -101,12 +104,14 @@ public class Painting implements Serializable {
 		return year;
 	}
 
+
 	/**
 	 * @param year the year to set
 	 */
 	public void setYear(String year) {
 		this.year = year;
 	}
+
 
 	/**
 	 * @return the url
@@ -115,12 +120,14 @@ public class Painting implements Serializable {
 		return url;
 	}
 
+
 	/**
 	 * @param url the url to set
 	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 
 	/**
 	 * @return the type
@@ -129,12 +136,14 @@ public class Painting implements Serializable {
 		return type;
 	}
 
+
 	/**
 	 * @param type the type to set
 	 */
 	public void setType(String type) {
 		this.type = type;
 	}
+
 
 	/**
 	 * @return the size
@@ -143,6 +152,7 @@ public class Painting implements Serializable {
 		return size;
 	}
 
+
 	/**
 	 * @param size the size to set
 	 */
@@ -150,40 +160,38 @@ public class Painting implements Serializable {
 		this.size = size;
 	}
 
+
 	/**
 	 * @return the customer
 	 */
-	public Set<Customer> getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
+
 
 	/**
 	 * @param customer the customer to set
 	 */
-	public void setCustomer(Set<Customer> customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	/**
-	 * @return the login
+	 * @return the exhibition
 	 */
-	public Set<Login> getLogin() {
-		return login;
+	public Exhibition getExhibition() {
+		return exhibition;
 	}
 
+
 	/**
-	 * @param login the login to set
+	 * @param exhibition the exhibition to set
 	 */
-	public void setLogin(Set<Login> login) {
-		this.login = login;
+	public void setExhibition(Exhibition exhibition) {
+		this.exhibition = exhibition;
 	}
+
 
 	/**
 	 * @return the artist
@@ -192,10 +200,37 @@ public class Painting implements Serializable {
 		return artist;
 	}
 
+
 	/**
 	 * @param artist the artist to set
 	 */
 	public void setArtist(Artist artist) {
 		this.artist = artist;
 	}
+
+
+	/**
+	 * @return the likes
+	 */
+	public Set<Likes> getLikes() {
+		return likes;
+	}
+
+
+	/**
+	 * @param likes the likes to set
+	 */
+	public void setLikes(Set<Likes> likes) {
+		this.likes = likes;
+	}
+
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 }
